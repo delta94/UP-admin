@@ -38,7 +38,7 @@ module.exports = function({ command }) {
             alwaysWriteToDisk: true,
             filename: "react-autogenerate.html"
         },
-        publicPath: isProduction ? "/static/" : url,
+        publicPath: process.env.NODE_ENV === "production" ? "/static/" : url,
         extra: {
             plugins: [
                 // this will copy an `index.html` for django to use
@@ -48,7 +48,7 @@ module.exports = function({ command }) {
             ]
         },
         config: function(webpackConfig) {
-            if (!isProduction) {
+            if (!process.env.NODE_ENV === "production") {
                 webpackConfig.entry = [
                     "webpack-dev-server/client?http://0.0.0.0:3000",
                     "webpack/hot/only-dev-server",
